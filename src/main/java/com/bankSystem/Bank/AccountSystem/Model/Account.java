@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Setter
 @Getter
 @Entity
-public class Account {
+public class Account extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
@@ -21,7 +21,7 @@ public class Account {
     double accountBalance;
 
     double accountInterest;
-
+    @JoinColumn(name = "customer_id", referencedColumnName = "id")
     @OneToOne
     Customer customer;
 

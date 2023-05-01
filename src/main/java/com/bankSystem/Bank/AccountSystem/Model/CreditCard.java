@@ -11,7 +11,7 @@ import java.util.Date;
 @Setter
 @Getter
 @Entity
-public class CreditCard {
+public class CreditCard extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
@@ -22,7 +22,7 @@ public class CreditCard {
     String expiryDate;
 
     String securityCode;
-
+    @JoinColumn(name = "account_id", referencedColumnName = "id")
     @OneToOne
     Account account;
 
