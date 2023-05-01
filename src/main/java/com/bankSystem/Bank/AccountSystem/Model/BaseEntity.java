@@ -1,13 +1,11 @@
 package com.bankSystem.Bank.AccountSystem.Model;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-@Data
-@Setter
+import javax.persistence.MappedSuperclass;
 @Getter
-@Entity
-public class Transaction {
+@Setter
+@MappedSuperclass
+public class BaseEntity {
 }
