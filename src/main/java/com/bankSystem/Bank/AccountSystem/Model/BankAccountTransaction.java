@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Setter
 @Getter
 @Entity
-public class Transaction extends BaseEntity {
+public class BankAccountTransaction extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
@@ -19,9 +19,6 @@ public class Transaction extends BaseEntity {
     LocalDateTime dateTime;
     String description;
     double amount;
-    @JoinColumn(name = "account_id", referencedColumnName = "id")
-    @ManyToOne
-    Account account;
     @JoinColumn(name = "creditCard_id", referencedColumnName = "id")
     @ManyToOne
     CreditCard creditCard;
