@@ -2,6 +2,10 @@ package com.bankSystem.Bank.AccountSystem.Service;
 
 import com.bankSystem.Bank.AccountSystem.Model.Account;
 import com.bankSystem.Bank.AccountSystem.Repository.AccountRepository;
+import com.bankSystem.Bank.AccountSystem.Repository.CustomerRepository;
+import com.bankSystem.Bank.AccountSystem.RequestObject.AccountRequest;
+import com.bankSystem.Bank.AccountSystem.RequestObject.CustomerRequestObject;
+import com.bankSystem.Bank.AccountSystem.Utility.HelperClass;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +16,10 @@ import java.util.List;
 public class AccountService {
     @Autowired
     AccountRepository accountRepository;
+    @Autowired
+    CustomerRepository customerRepository;
+    @Autowired
+    CustomerRequestObject customerRequestObject;
 
     public List<Account> getAllAccounts() {
         return accountRepository.getAllAccounts();
@@ -25,6 +33,7 @@ public class AccountService {
         return accountRepository.getAccountByAccountNumber(accountNumber);
     }
 
+
     public List<Account> getByAccountType(String accountType) {
         return accountRepository.getByAccountType(accountType);
     }
@@ -32,7 +41,16 @@ public class AccountService {
     public List<Account> getByAccountBalance(double accountBalance) {
         return accountRepository.getByAccountBalance(accountBalance);
     }
-    public List<Account> getByAccountInterest(double accountInterest){
+
+    public double getBalanceByAccountNumber(Integer accountNumber) {
+        return accountRepository.getBalanceByAccountNumber(accountNumber);
+    }
+
+    public double getBalanceByAccountId(Integer accountId) {
+        return accountRepository.getBalanceByAccountId(accountId);
+    }
+
+    public List<Account> getByAccountInterest(double accountInterest) {
         return accountRepository.getByAccountInterest(accountInterest);
     }
 
@@ -81,29 +99,51 @@ public class AccountService {
         account.setIsActive(false);
         accountRepository.save(account);
     }
-    public void deleteByAccountNumber(Integer accountNumber){
-        Account account=getAccountByAccountNumber(accountNumber);
+
+    public void deleteByAccountNumber(Integer accountNumber) {
+        Account account = getAccountByAccountNumber(accountNumber);
         account.setIsActive(false);
         accountRepository.save(account);
     }
-    public void deleteByAccountType(String accountType){
+
+    public void deleteByAccountType(String accountType) {
         List<Account> accountList = getByAccountType(accountType);
         accountList.stream().forEach(a -> a.setIsActive(false));
         accountRepository.saveAll(accountList);
     }
-    public void deleteByAccountBalance(double accountBalance){
+
+    public void deleteByAccountBalance(double accountBalance) {
         List<Account> accountList = getByAccountBalance(accountBalance);
         accountList.stream().forEach(a -> a.setIsActive(false));
         accountRepository.saveAll(accountList);
     }
-    public void deleteByAccountInterest(double accountInterest){
+
+    public void deleteByAccountInterest(double accountInterest) {
         List<Account> accountList = getByAccountInterest(accountInterest);
         accountList.stream().forEach(a -> a.setIsActive(false));
         accountRepository.saveAll(accountList);
     }
-    public void deleteByCustomerId(Integer customerId){
-        Account account =getAccountByCustomerId(customerId);
+
+    public void deleteByCustomerId(Integer customerId) {
+        Account account = getAccountByCustomerId(customerId);
         account.setIsActive(false);
         accountRepository.save(account);
+    }
+
+    public void createAccount(AccountRequest accountRequest) {
+        Account account = AccountRequest.convert(accountRequest);
+        accountRepository.save(account);
+    }
+
+    public Account updateAccount(AccountRequest request) {
+        Account entity = accountRepository.getAccountByCustomerId(request.getCustomerRequestObject().getCustomerId());
+
+        entity.setAccountInterest(HelperClass.compare(entity.getAccountInterest(), request.getAccountInterest()));
+        entity.setAccountNumber(HelperClass.compare(entity.getAccountNumber(), request.getAccountNumber()));
+        entity.setAccountBalance(HelperClass.compare(entity.getAccountBalance(), request.getAccountBalance()));
+        entity.setAccountType(HelperClass.compare(entity.getAccountType(), request.getAccountType()));
+        entity.setIsActive(true);
+        entity.setCreatedDate(new Date());
+        return entity;
     }
 }

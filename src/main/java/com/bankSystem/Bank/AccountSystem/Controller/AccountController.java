@@ -1,13 +1,11 @@
 package com.bankSystem.Bank.AccountSystem.Controller;
 
 import com.bankSystem.Bank.AccountSystem.Model.Account;
+import com.bankSystem.Bank.AccountSystem.RequestObject.AccountRequest;
 import com.bankSystem.Bank.AccountSystem.Service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,8 +14,10 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "account")
 public class AccountController {
+
     @Autowired
     AccountService accountService;
+
 
     @RequestMapping(value = "getAll", method = RequestMethod.GET)
     public List<Account> getAllAccounts() {
@@ -32,6 +32,7 @@ public class AccountController {
     }
 
     @RequestMapping(value = "getByAccountNumber", method = RequestMethod.GET)
+    //Retrieve the account balance for a specific account
     public Account getAccountByAccountNumber(@RequestParam Integer accountNumber) {
         return accountService.getAccountByAccountNumber(accountNumber);
     }
@@ -46,6 +47,16 @@ public class AccountController {
     public List<Account> getByAccountBalance(double accountBalance) {
         List<Account> accountListByAccountBalance = accountService.getByAccountBalance(accountBalance);
         return accountListByAccountBalance;
+    }
+
+    @RequestMapping(value = "getBalanceByAccountNumber", method = RequestMethod.GET)
+    public double getBalanceByAccountNumber(Integer accountNumber) {
+        return accountService.getBalanceByAccountNumber(accountNumber);
+    }
+
+    @RequestMapping(value = "getByAccountId", method = RequestMethod.GET)
+    public double getBalanceByAccountId(Integer accountId) {
+        return accountService.getBalanceByAccountId(accountId);
     }
 
     @RequestMapping(value = "getByAccountInterest", method = RequestMethod.GET)
@@ -98,10 +109,19 @@ public class AccountController {
     public void deleteAllAccounts() {
         accountService.deleteAllAccounts();
     }
+
     @RequestMapping(value = "deleteAllAccountCreatedAfterDate", method = RequestMethod.POST)
     public void deleteAllAccountCreatedAfterDate(Date createdDate) {
         accountService.deleteAllAccountCreatedAfterDate(createdDate);
     }
 
+    @RequestMapping(value = "createAccount", method = RequestMethod.POST)
+    public void createAccount(@RequestBody AccountRequest accountRequest) {
+        accountService.createAccount(accountRequest);
+    }
+
+    public void updateAccount() {
+
+    }
 
 }

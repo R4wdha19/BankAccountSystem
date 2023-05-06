@@ -27,8 +27,16 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
 
     @Query(value = "select acc from Account acc where acc.accountBalance = :accountBalance")
     List<Account> getByAccountBalance(@Param("accountBalance") double accountBalance);
+
+    @Query(value = "select acc.accountBalance from Account acc where acc.accountNumber = :accountNumber")
+    public double getBalanceByAccountNumber(@Param("accountNumber")Integer accountNumber);
+
+    @Query(value = "select acc.accountBalance from Account acc where acc.id = :accountId")
+    public double getBalanceByAccountId(@Param("accountId")Integer accountId);
+
     @Query(value = "select acc from Account acc where acc.accountInterest = :accountInterest")
     List<Account> getByAccountInterest(@Param("accountInterest") double accountInterest);
+
     @Query(value = "select acc from Account acc where acc.isActive = 1")
     List<Account> getAllActiveAccounts();
 
@@ -36,10 +44,10 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
     List<Account> getAllInActiveAccounts();
 
     @Query(value = "select * from account where updated_date like CONCAT (?1, '%') ", nativeQuery = true)
-    List<Account> getByUpdatedDate(String updatedDate);
+    List<Account> getByUpdatedDate(@Param("updatedDate")String updatedDate);
 
     @Query(value = "select * from account where created_date like CONCAT (?1, '%') ", nativeQuery = true)
-    List<Account> getByCreatedDate(String createdDate);
+    List<Account> getByCreatedDate(@Param("createdDate")String createdDate);
 
 
     @Query(value = "select acc from Account acc where acc.customer.id = :customerId")
@@ -61,8 +69,7 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
     void deleteAllAccounts();
 
     @Query(value = "select acc from Account acc where acc.createdDate >= :createdDate")
-    List<Account> deleteAllAccountCreatedAfterDate(Date createdDate);
-
+    List<Account> deleteAllAccountCreatedAfterDate(@Param("createdDate")Date createdDate);
 
 
 }

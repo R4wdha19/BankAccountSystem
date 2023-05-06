@@ -3,6 +3,7 @@ package com.bankSystem.Bank.AccountSystem.Model;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 
@@ -22,7 +23,7 @@ public class Account extends BaseEntity {
 
     double accountInterest;
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
     Customer customer;
 
 }
