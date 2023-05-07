@@ -68,8 +68,8 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
     @Query(value = "update Account acc Set acc.isActive = false")
     void deleteAllAccounts();
 
-    @Query(value = "select acc from Account acc where acc.createdDate >= :createdDate")
-    List<Account> deleteAllAccountCreatedAfterDate(@Param("createdDate")Date createdDate);
+    @Query(value = "select acc from Account acc where acc.createdDate > :createdDate")
+    List<Account> deleteAllAccountsCreatedAfterDate(@Param("createdDate")Date createdDate);
 
 
 }

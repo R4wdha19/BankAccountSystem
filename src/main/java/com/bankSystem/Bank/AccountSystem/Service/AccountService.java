@@ -2,9 +2,7 @@ package com.bankSystem.Bank.AccountSystem.Service;
 
 import com.bankSystem.Bank.AccountSystem.Model.Account;
 import com.bankSystem.Bank.AccountSystem.Repository.AccountRepository;
-import com.bankSystem.Bank.AccountSystem.Repository.CustomerRepository;
 import com.bankSystem.Bank.AccountSystem.RequestObject.AccountRequest;
-import com.bankSystem.Bank.AccountSystem.RequestObject.CustomerRequestObject;
 import com.bankSystem.Bank.AccountSystem.Utility.Constants;
 import com.bankSystem.Bank.AccountSystem.Utility.HelperClass;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,7 +87,7 @@ public class AccountService {
     }
 
     public void deleteAllAccountCreatedAfterDate(Date createdDate) {
-        accountRepository.deleteAllAccountCreatedAfterDate(createdDate);
+        accountRepository.deleteAllAccountsCreatedAfterDate(createdDate);
     }
 
     public void deleteById(Integer accountId) {
@@ -134,14 +132,14 @@ public class AccountService {
     }
 
     public Account updateAccount(AccountRequest request) {
-        Account entity = accountRepository.getAccountByCustomerId(request.getCustomerRequestObject().getCustomerId());
+        Account entity = accountRepository.getAccountByCustomerId(request.getCustomerRequestObject().getCustomerId()); // entity = value in db
 
         entity.setAccountInterest(HelperClass.compare(entity.getAccountInterest(), request.getAccountInterest()));
         entity.setAccountNumber(HelperClass.compare(entity.getAccountNumber(), request.getAccountNumber()));
         entity.setAccountBalance(HelperClass.compare(entity.getAccountBalance(), request.getAccountBalance()));
         entity.setAccountType(HelperClass.compare(entity.getAccountType(), request.getAccountType()));
         entity.setIsActive(true);
-        entity.setCreatedDate(new Date());
+        entity.setUpdatedDate(new Date());
         return entity;
     }
 
