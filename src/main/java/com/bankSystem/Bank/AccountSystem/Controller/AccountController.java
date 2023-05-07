@@ -32,7 +32,6 @@ public class AccountController {
     }
 
     @RequestMapping(value = "getByAccountNumber", method = RequestMethod.GET)
-    //Retrieve the account balance for a specific account
     public Account getAccountByAccountNumber(@RequestParam Integer accountNumber) {
         return accountService.getAccountByAccountNumber(accountNumber);
     }
@@ -50,6 +49,7 @@ public class AccountController {
     }
 
     @RequestMapping(value = "getBalanceByAccountNumber", method = RequestMethod.GET)
+    //Retrieve the account balance for a specific account
     public Double getBalanceByAccountNumber(Integer accountNumber) {
         return accountService.getBalanceByAccountNumber(accountNumber);
     }
@@ -124,6 +124,7 @@ public class AccountController {
     public void updateAccount(@RequestBody AccountRequest accountRequest) {
         accountService.updateAccount(accountRequest);
     }
+
     @RequestMapping(value = "getAccountBalanceInterest", method = RequestMethod.GET)
     public Double getAccountBalanceInterest(Integer accountId) {
         return accountService.getAccountBalanceInterest(accountId);

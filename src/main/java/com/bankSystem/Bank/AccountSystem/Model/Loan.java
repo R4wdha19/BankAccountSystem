@@ -16,7 +16,7 @@ public class Loan extends BaseEntity {
     Integer id;
     Double principalAmount;
     Double interestRate;
-
+    String loanStatus;
     Integer termMonths;
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
     @ManyToOne

@@ -1,5 +1,6 @@
 package com.bankSystem.Bank.AccountSystem.Model;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 @Setter
 @Getter
 @Entity
+@Builder
 public class BankAccountTransaction extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

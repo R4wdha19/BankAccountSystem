@@ -5,6 +5,7 @@ import com.bankSystem.Bank.AccountSystem.Model.Customer;
 import com.bankSystem.Bank.AccountSystem.Repository.CustomerRepository;
 import com.bankSystem.Bank.AccountSystem.Service.AccountService;
 import com.bankSystem.Bank.AccountSystem.Utility.HelperClass;
+import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,6 +18,7 @@ import java.util.List;
 @Data
 @Setter
 @Getter
+@Builder
 public class AccountRequest {
 
     Integer accountId;
@@ -24,7 +26,6 @@ public class AccountRequest {
     Double accountBalance;
     String accountType;
     Double accountInterest;
-
     CustomerRequestObject customerRequestObject;
 
 
