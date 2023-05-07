@@ -19,9 +19,9 @@ public class Account extends BaseEntity {
 
     String accountType;
 
-    double accountBalance;
+    Double accountBalance;
 
-    double accountInterest;
+    Double accountInterest;
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
     @OneToOne(cascade=CascadeType.ALL)
     Customer customer;

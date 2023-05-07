@@ -14,8 +14,8 @@ public class Loan extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
-    double principalAmount;
-    double interestRate;
+    Double principalAmount;
+    Double interestRate;
 
     Integer termMonths;
     @JoinColumn(name = "customer_id", referencedColumnName = "id")

@@ -18,13 +18,12 @@ import java.util.List;
 @Setter
 @Getter
 public class AccountRequest {
-    @Autowired
-    AccountService accountService;
+
     Integer accountId;
     Integer accountNumber;
-    double accountBalance;
+    Double accountBalance;
     String accountType;
-    double accountInterest;
+    Double accountInterest;
 
     CustomerRequestObject customerRequestObject;
 

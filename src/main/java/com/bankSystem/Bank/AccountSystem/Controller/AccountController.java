@@ -44,23 +44,23 @@ public class AccountController {
     }
 
     @RequestMapping(value = "getByAccountBalance", method = RequestMethod.GET)
-    public List<Account> getByAccountBalance(double accountBalance) {
+    public List<Account> getByAccountBalance(Double accountBalance) {
         List<Account> accountListByAccountBalance = accountService.getByAccountBalance(accountBalance);
         return accountListByAccountBalance;
     }
 
     @RequestMapping(value = "getBalanceByAccountNumber", method = RequestMethod.GET)
-    public double getBalanceByAccountNumber(Integer accountNumber) {
+    public Double getBalanceByAccountNumber(Integer accountNumber) {
         return accountService.getBalanceByAccountNumber(accountNumber);
     }
 
     @RequestMapping(value = "getByAccountId", method = RequestMethod.GET)
-    public double getBalanceByAccountId(Integer accountId) {
+    public Double getBalanceByAccountId(Integer accountId) {
         return accountService.getBalanceByAccountId(accountId);
     }
 
     @RequestMapping(value = "getByAccountInterest", method = RequestMethod.GET)
-    public List<Account> getByAccountInterest(double accountInterest) {
+    public List<Account> getByAccountInterest(Double accountInterest) {
         List<Account> accountListByAccountInterest = accountService.getByAccountInterest(accountInterest);
         return accountListByAccountInterest;
     }
@@ -120,8 +120,13 @@ public class AccountController {
         accountService.createAccount(accountRequest);
     }
 
-    public void updateAccount() {
-
+    @RequestMapping(value = "updateAccount", method = RequestMethod.POST)
+    public void updateAccount(@RequestBody AccountRequest accountRequest) {
+        accountService.updateAccount(accountRequest);
+    }
+    @RequestMapping(value = "getAccountBalanceInterest", method = RequestMethod.GET)
+    public Double getAccountBalanceInterest(Integer accountId) {
+        return accountService.getAccountBalanceInterest(accountId);
     }
 
 }

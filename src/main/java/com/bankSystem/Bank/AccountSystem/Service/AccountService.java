@@ -5,6 +5,7 @@ import com.bankSystem.Bank.AccountSystem.Repository.AccountRepository;
 import com.bankSystem.Bank.AccountSystem.Repository.CustomerRepository;
 import com.bankSystem.Bank.AccountSystem.RequestObject.AccountRequest;
 import com.bankSystem.Bank.AccountSystem.RequestObject.CustomerRequestObject;
+import com.bankSystem.Bank.AccountSystem.Utility.Constants;
 import com.bankSystem.Bank.AccountSystem.Utility.HelperClass;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,10 +17,7 @@ import java.util.List;
 public class AccountService {
     @Autowired
     AccountRepository accountRepository;
-    @Autowired
-    CustomerRepository customerRepository;
-    @Autowired
-    CustomerRequestObject customerRequestObject;
+
 
     public List<Account> getAllAccounts() {
         return accountRepository.getAllAccounts();
@@ -38,19 +36,19 @@ public class AccountService {
         return accountRepository.getByAccountType(accountType);
     }
 
-    public List<Account> getByAccountBalance(double accountBalance) {
+    public List<Account> getByAccountBalance(Double accountBalance) {
         return accountRepository.getByAccountBalance(accountBalance);
     }
 
-    public double getBalanceByAccountNumber(Integer accountNumber) {
+    public Double getBalanceByAccountNumber(Integer accountNumber) {
         return accountRepository.getBalanceByAccountNumber(accountNumber);
     }
 
-    public double getBalanceByAccountId(Integer accountId) {
+    public Double getBalanceByAccountId(Integer accountId) {
         return accountRepository.getBalanceByAccountId(accountId);
     }
 
-    public List<Account> getByAccountInterest(double accountInterest) {
+    public List<Account> getByAccountInterest(Double accountInterest) {
         return accountRepository.getByAccountInterest(accountInterest);
     }
 
@@ -112,13 +110,13 @@ public class AccountService {
         accountRepository.saveAll(accountList);
     }
 
-    public void deleteByAccountBalance(double accountBalance) {
+    public void deleteByAccountBalance(Double accountBalance) {
         List<Account> accountList = getByAccountBalance(accountBalance);
         accountList.stream().forEach(a -> a.setIsActive(false));
         accountRepository.saveAll(accountList);
     }
 
-    public void deleteByAccountInterest(double accountInterest) {
+    public void deleteByAccountInterest(Double accountInterest) {
         List<Account> accountList = getByAccountInterest(accountInterest);
         accountList.stream().forEach(a -> a.setIsActive(false));
         accountRepository.saveAll(accountList);
@@ -145,5 +143,11 @@ public class AccountService {
         entity.setIsActive(true);
         entity.setCreatedDate(new Date());
         return entity;
+    }
+
+    public Double getAccountBalanceInterest(Integer accountId) {
+        Double accountBalance = accountRepository.getBalanceByAccountId(accountId);
+        Double accountBalanceInterest = accountBalance * Constants.interestRate;
+        return accountBalanceInterest;
     }
 }

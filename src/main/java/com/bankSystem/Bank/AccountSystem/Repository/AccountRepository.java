@@ -26,16 +26,16 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
     List<Account> getByAccountType(@Param("accountType") String accountType);
 
     @Query(value = "select acc from Account acc where acc.accountBalance = :accountBalance")
-    List<Account> getByAccountBalance(@Param("accountBalance") double accountBalance);
+    List<Account> getByAccountBalance(@Param("accountBalance") Double accountBalance);
 
     @Query(value = "select acc.accountBalance from Account acc where acc.accountNumber = :accountNumber")
-    public double getBalanceByAccountNumber(@Param("accountNumber")Integer accountNumber);
+    public Double getBalanceByAccountNumber(@Param("accountNumber")Integer accountNumber);
 
     @Query(value = "select acc.accountBalance from Account acc where acc.id = :accountId")
-    public double getBalanceByAccountId(@Param("accountId")Integer accountId);
+    public Double getBalanceByAccountId(@Param("accountId")Integer accountId);
 
     @Query(value = "select acc from Account acc where acc.accountInterest = :accountInterest")
-    List<Account> getByAccountInterest(@Param("accountInterest") double accountInterest);
+    List<Account> getByAccountInterest(@Param("accountInterest") Double accountInterest);
 
     @Query(value = "select acc from Account acc where acc.isActive = 1")
     List<Account> getAllActiveAccounts();

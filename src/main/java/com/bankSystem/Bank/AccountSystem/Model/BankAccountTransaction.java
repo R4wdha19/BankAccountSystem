@@ -18,7 +18,7 @@ public class BankAccountTransaction extends BaseEntity {
 
     LocalDateTime dateTime;
     String description;
-    double amount;
+    Double amount;
     @JoinColumn(name = "creditCard_id", referencedColumnName = "id")
     @ManyToOne
     CreditCard creditCard;
