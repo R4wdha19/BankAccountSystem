@@ -1,5 +1,8 @@
 package com.bankSystem.Bank.AccountSystem.Utility;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+
 public class HelperClass {
     public static String compare(String entity, String request) {
         if (request == null) {
@@ -42,6 +45,26 @@ public class HelperClass {
     }
 
     public static Boolean compare(Boolean entity, Boolean request) {
+        if (request == null) {
+            return entity;
+        } else if (request.equals(entity)) {
+            return entity;
+        } else {
+            return request;
+        }
+    }
+
+    public static LocalDateTime compare(LocalDateTime entity, LocalDateTime request) {
+        if (request == null) {
+            return entity;
+        } else if (request.equals(entity)) {
+            return entity;
+        } else {
+            return request;
+        }
+    }
+
+    public static Date compare(Date entity, Date request) {
         if (request == null) {
             return entity;
         } else if (request.equals(entity)) {

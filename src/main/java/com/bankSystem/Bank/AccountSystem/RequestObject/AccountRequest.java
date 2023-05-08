@@ -14,11 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 @Data
 @Setter
 @Getter
-@Builder
 public class AccountRequest {
 
     Integer accountId;
@@ -26,6 +24,7 @@ public class AccountRequest {
     Double accountBalance;
     String accountType;
     Double accountInterest;
+
     CustomerRequestObject customerRequestObject;
 
 
@@ -41,7 +40,7 @@ public class AccountRequest {
         return account;
     }
 
-    public static List<Account> convertList(List<AccountRequest> requestList) {
+    public static List<Account> convert(List<AccountRequest> requestList) {
         List<Account> accountList = new ArrayList<>();
         if (!requestList.isEmpty()) {
             for (AccountRequest accountRequest : requestList) {
