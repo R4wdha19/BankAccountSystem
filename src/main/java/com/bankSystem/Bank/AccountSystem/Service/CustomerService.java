@@ -1,6 +1,5 @@
 package com.bankSystem.Bank.AccountSystem.Service;
 
-import com.bankSystem.Bank.AccountSystem.Model.Account;
 import com.bankSystem.Bank.AccountSystem.Model.Customer;
 import com.bankSystem.Bank.AccountSystem.Repository.CustomerRepository;
 import com.bankSystem.Bank.AccountSystem.RequestObject.CustomerRequestObject;
