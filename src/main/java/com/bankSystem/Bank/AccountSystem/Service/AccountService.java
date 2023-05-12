@@ -143,6 +143,7 @@ public class AccountService {
         return entity;
     }
 
+
     public Double getAccountBalanceInterest(Integer accountId) {
         Double accountBalance = accountRepository.getBalanceByAccountId(accountId);
         Double accountBalanceInterest = accountBalance * Constants.interestRate;

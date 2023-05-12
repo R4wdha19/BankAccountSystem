@@ -2,6 +2,7 @@ package com.bankSystem.Bank.AccountSystem.Service;
 
 import com.bankSystem.Bank.AccountSystem.Model.BankAccountTransaction;
 import com.bankSystem.Bank.AccountSystem.Repository.BankAccountTransactionRepository;
+import com.bankSystem.Bank.AccountSystem.RequestObject.TransactionRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -68,32 +69,47 @@ public class TransactionService {
         return bankAccountTransactionList;
     }
 
-    public void deleteAccountTransactionById() {
-
+    public void deleteAccountTransactionById(Integer id) {
+        BankAccountTransaction bankAccountTransaction = bankAccountTransactionRepository.getAccountTransactionById(id);
+        bankAccountTransaction.setIsActive(false);
+        bankAccountTransactionRepository.save(bankAccountTransaction);
     }
 
 
-    public void deleteAllAccountTransactionsCreatedAfterDate() {
-
+    public void deleteAllAccountTransactionsCreatedAfterDate(Date createdDate) {
+        List<BankAccountTransaction> accountTransactionList = new ArrayList<>();
+        accountTransactionList = bankAccountTransactionRepository.getAccountTransactionCreatedAfterDate(createdDate);
+        accountTransactionList.stream().forEach(at -> at.setIsActive(false));
+        bankAccountTransactionRepository.saveAll(accountTransactionList);
     }
 
-    public void deleteAccountTransactionByCreditCardId() {
-
+    public void deleteAccountTransactionByCreditCardId(Integer creditCardId) {
+        List<BankAccountTransaction> bankAccountTransactionByCreditCardId = bankAccountTransactionRepository.getAccountTransactionByCreditCardId(creditCardId);
+        bankAccountTransactionByCreditCardId.stream().forEach(x -> x.setIsActive(false));
+        bankAccountTransactionRepository.saveAll(bankAccountTransactionByCreditCardId);
     }
 
-    public void deleteAccountTransactionByCreatedDate() {
-
+    public void deleteAccountTransactionsByCreatedDate(String createdDate) {
+        List<BankAccountTransaction> bankAccountTransactionByCreatedDate = bankAccountTransactionRepository.getAccountTransactionsByCreatedDate(createdDate);
+        bankAccountTransactionByCreatedDate.stream().forEach(x -> x.setIsActive(false));
+        bankAccountTransactionRepository.saveAll(bankAccountTransactionByCreatedDate);
     }
 
-    public void deleteAccountTransactionByUpdatedDate() {
-
+    public void deleteAccountTransactionsByUpdatedDate(String updatedDate) {
+        List<BankAccountTransaction> bankAccountTransactionByUpdatedDate = bankAccountTransactionRepository.getAccountTransactionsByUpdatedDate(updatedDate);
+        bankAccountTransactionByUpdatedDate.stream().forEach(x -> x.setIsActive(false));
+        bankAccountTransactionRepository.saveAll(bankAccountTransactionByUpdatedDate);
     }
 
-    public void createAccountTransaction() {
-
+    public void createAccountTransaction(TransactionRequest transactionRequest) {
+        BankAccountTransaction bankAccountTransaction = TransactionRequest.convert(transactionRequest);
+        bankAccountTransactionRepository.save(bankAccountTransaction);
     }
 
-    public void updateAccountTransaction() {
+    public void updateAccountTransaction(TransactionRequest transactionRequest) {
+        BankAccountTransaction entity = bankAccountTransactionRepository.getAccountTransactionById(transactionRequest.getTransactionId());
+        entity.setDescription(transactionRequest.getDescription());
+        entity.setTransactionStatus( );
 
     }
 

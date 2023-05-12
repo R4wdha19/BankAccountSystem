@@ -19,6 +19,8 @@ public class TransactionRequest {
     String description;
     Double amount;
 
+    String status;
+
     CreditCardRequest creditCardRequest;
 
     public static BankAccountTransaction convert(TransactionRequest request) {
