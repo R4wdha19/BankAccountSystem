@@ -34,7 +34,7 @@ public interface BankAccountTransactionRepository extends JpaRepository<BankAcco
     @Query(value = "select bat from BankAccountTransaction bat where bat.createdDate > :createdDate")
     public List<BankAccountTransaction> getAccountTransactionCreatedAfterDate(@Param("createdDate") Date createdDate);
 
-    @Query(value = "select bat from BankAccountTransaction bat where bat.amount = :bankAccountTransactionAmount")
+    @Query(value = "select bat from BankAccountTransaction bat where bat.amount = :amount")
     public List<BankAccountTransaction> getAllAccountTransactionByAmount(@Param("amount") Double bankAccountTransactionAmount);
 
     @Query(value = "select * from account where updated_date like CONCAT (?1, '%') ", nativeQuery = true)

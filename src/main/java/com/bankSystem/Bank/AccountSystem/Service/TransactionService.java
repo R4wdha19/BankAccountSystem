@@ -3,6 +3,7 @@ package com.bankSystem.Bank.AccountSystem.Service;
 import com.bankSystem.Bank.AccountSystem.Model.BankAccountTransaction;
 import com.bankSystem.Bank.AccountSystem.Repository.BankAccountTransactionRepository;
 import com.bankSystem.Bank.AccountSystem.RequestObject.TransactionRequest;
+import com.bankSystem.Bank.AccountSystem.Utility.TransactionStatusEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -106,10 +107,16 @@ public class TransactionService {
         bankAccountTransactionRepository.save(bankAccountTransaction);
     }
 
-    public void updateAccountTransaction(TransactionRequest transactionRequest) {
+    public void updateAccountTransaction(TransactionRequest transactionRequest, TransactionStatusEnum transactionStatusEnum) {
         BankAccountTransaction entity = bankAccountTransactionRepository.getAccountTransactionById(transactionRequest.getTransactionId());
         entity.setDescription(transactionRequest.getDescription());
-        entity.setTransactionStatus( );
+        switch (transactionStatusEnum){
+            case FAILED -> entity.setTransactionStatus(TransactionStatusEnum.FAILED);
+            case SUCCESSFUL -> entity.setTransactionStatus(TransactionStatusEnum.SUCCESSFUL);
+            case PENDING -> entity.setTransactionStatus(TransactionStatusEnum.PENDING);
+            case RUNNING -> entity.setTransactionStatus(TransactionStatusEnum.RUNNING);
+            case WAITING -> entity.setTransactionStatus(TransactionStatusEnum.WAITING);
+        }
 
     }
 

@@ -17,6 +17,7 @@ public class BankAccountTransaction extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
+    @Enumerated(EnumType.STRING)
     TransactionStatusEnum transactionStatus;
     LocalDateTime dateTime;
     String description;
