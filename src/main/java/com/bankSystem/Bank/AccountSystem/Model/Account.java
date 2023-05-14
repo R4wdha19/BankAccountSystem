@@ -14,7 +14,8 @@ import javax.persistence.*;
 public class Account extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
+    @Column(name = "id")
+    Integer accountId;
     Integer accountNumber;
 
     String accountType;

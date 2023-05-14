@@ -2,6 +2,7 @@ package com.bankSystem.Bank.AccountSystem.Controller;
 
 import com.bankSystem.Bank.AccountSystem.Model.Account;
 import com.bankSystem.Bank.AccountSystem.RequestObject.AccountRequest;
+import com.bankSystem.Bank.AccountSystem.ResponseObject.AccountResponseObject;
 import com.bankSystem.Bank.AccountSystem.Service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -23,6 +24,7 @@ public class AccountController {
     public List<Account> getAllAccounts() {
         List<Account> accounts = new ArrayList<>();
         accounts = accountService.getAllAccounts();
+        AccountResponseObject.covertToResponseList(accounts);
         return accounts;
     }
 

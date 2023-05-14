@@ -1,6 +1,7 @@
 package com.bankSystem.Bank.AccountSystem.Repository;
 
 import com.bankSystem.Bank.AccountSystem.Model.Account;
+import com.bankSystem.Bank.AccountSystem.ResponseObject.AccountResponseObject;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
