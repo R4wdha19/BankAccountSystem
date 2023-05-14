@@ -110,12 +110,15 @@ public class TransactionService {
     public void updateAccountTransaction(TransactionRequest transactionRequest, TransactionStatusEnum transactionStatusEnum) {
         BankAccountTransaction entity = bankAccountTransactionRepository.getAccountTransactionById(transactionRequest.getTransactionId());
         entity.setTransactionDescription(transactionRequest.getDescription());
-        switch (transactionStatusEnum){
+        switch (transactionStatusEnum) {
             case FAILED -> entity.setTransactionStatus(TransactionStatusEnum.FAILED);
             case SUCCESSFUL -> entity.setTransactionStatus(TransactionStatusEnum.SUCCESSFUL);
             case PENDING -> entity.setTransactionStatus(TransactionStatusEnum.PENDING);
             case RUNNING -> entity.setTransactionStatus(TransactionStatusEnum.RUNNING);
             case WAITING -> entity.setTransactionStatus(TransactionStatusEnum.WAITING);
         }
+    }
+    public BankAccountTransaction getAccountDescriptionByAccountNumber(Integer accountNumber) {
+        return bankAccountTransactionRepository.getAccountDescriptionByAccountNumber(accountNumber);
     }
 }

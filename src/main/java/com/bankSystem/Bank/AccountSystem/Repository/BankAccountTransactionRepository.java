@@ -45,9 +45,13 @@ public interface BankAccountTransactionRepository extends JpaRepository<BankAcco
 
     @Query(value = " select bat from BankAccountTransaction bat where bat.creditCard.id = :creditCardId")
     public List<BankAccountTransaction> getAccountTransactionByCreditCardId(@Param("creditCardId") Integer creditCardId);
+
     @Modifying
     @Transactional
     @Query(value = "update BankAccountTransaction bat Set bat.isActive = false")
     public void deleteAllAccountTransactions();
+
+    @Query("select bat.transactionDescription from BankAccountTransaction bat where bat.accountNumber= :accountNumber")
+    public BankAccountTransaction getAccountDescriptionByAccountNumber(@Param("accountNumber") Integer accountNumber);
 
 }
