@@ -73,4 +73,15 @@ public class HelperClass {
             return request;
         }
     }
+
+    public static TransactionStatusEnum getTransactionStatusEnumFromStatus(String status){
+        TransactionStatusEnum transactionStatusEnum = TransactionStatusEnum.SUCCESSFUL;
+        switch (status){
+            case "FAILED" -> transactionStatusEnum = TransactionStatusEnum.FAILED;
+            case "PENDING" -> transactionStatusEnum = TransactionStatusEnum.PENDING;
+            case "RUNNING" -> transactionStatusEnum = TransactionStatusEnum.RUNNING;
+            case "WAITING" -> transactionStatusEnum = TransactionStatusEnum.WAITING;
+        }
+        return transactionStatusEnum;
+    }
 }

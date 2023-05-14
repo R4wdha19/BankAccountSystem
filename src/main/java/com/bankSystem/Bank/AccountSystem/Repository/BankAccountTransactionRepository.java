@@ -13,7 +13,7 @@ import java.util.List;
 
 @Repository
 public interface BankAccountTransactionRepository extends JpaRepository<BankAccountTransaction, Integer> {
-    @Query(value = "select bat from BankAccountTransaction bat where bat.id = :bankAccountTransactionId")
+    @Query(value = "select bat from BankAccountTransaction bat where bat.transactionId = :bankAccountTransactionId")
     public BankAccountTransaction getAccountTransactionById(@Param("bankAccountTransactionId") Integer bankAccountTransactionId);
 
     @Query(value = "select bat from BankAccountTransaction bat")
@@ -25,7 +25,7 @@ public interface BankAccountTransactionRepository extends JpaRepository<BankAcco
     @Query(value = "select bat from BankAccountTransaction bat where bat.isActive = false")
     public List<BankAccountTransaction> getAllInActiveAccountTransactions();
 
-    @Query(value = "select bat from BankAccountTransaction bat where bat.id = (select Max(bat.id) from BankAccountTransaction bat )")
+    @Query(value = "select bat from BankAccountTransaction bat where bat.transactionId = (select Max(bat.transactionId) from BankAccountTransaction bat )")
     public BankAccountTransaction getLatestRow();
 
     @Query(value = "select bat from BankAccountTransaction bat where bat.updatedDate = (select Max(bat.updatedDate) from BankAccountTransaction bat)")
@@ -34,7 +34,7 @@ public interface BankAccountTransactionRepository extends JpaRepository<BankAcco
     @Query(value = "select bat from BankAccountTransaction bat where bat.createdDate > :createdDate")
     public List<BankAccountTransaction> getAccountTransactionCreatedAfterDate(@Param("createdDate") Date createdDate);
 
-    @Query(value = "select bat from BankAccountTransaction bat where bat.amount = :amount")
+    @Query(value = "select bat from BankAccountTransaction bat where bat.transactionAmount = :amount")
     public List<BankAccountTransaction> getAllAccountTransactionByAmount(@Param("amount") Double bankAccountTransactionAmount);
 
     @Query(value = "select * from account where updated_date like CONCAT (?1, '%') ", nativeQuery = true)

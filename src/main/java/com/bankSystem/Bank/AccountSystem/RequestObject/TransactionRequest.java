@@ -1,6 +1,8 @@
 package com.bankSystem.Bank.AccountSystem.RequestObject;
 
 import com.bankSystem.Bank.AccountSystem.Model.BankAccountTransaction;
+import com.bankSystem.Bank.AccountSystem.Utility.HelperClass;
+import com.bankSystem.Bank.AccountSystem.Utility.TransactionStatusEnum;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,27 +20,26 @@ public class TransactionRequest {
     LocalDateTime dateTime;
     String description;
     Double amount;
-
     String status;
-
     CreditCardRequest creditCardRequest;
 
-    public static BankAccountTransaction convert(TransactionRequest request) {
+    public static BankAccountTransaction convertTransactionObject(TransactionRequest request) {
         BankAccountTransaction bankAccountTransaction = new BankAccountTransaction();
-        bankAccountTransaction.setDateTime(request.getDateTime());
-        bankAccountTransaction.setDescription(request.getDescription());
-        bankAccountTransaction.setAmount(request.getAmount());
+        bankAccountTransaction.setTransactionDateTime(request.getDateTime());
+        bankAccountTransaction.setTransactionDescription(request.getDescription());
+        bankAccountTransaction.setTransactionAmount(request.getAmount());
         bankAccountTransaction.setIsActive(true);
         bankAccountTransaction.setCreatedDate(new Date());
         bankAccountTransaction.setCreditCard(CreditCardRequest.convert(request.getCreditCardRequest()));
+        bankAccountTransaction.setTransactionStatus(HelperClass.getTransactionStatusEnumFromStatus(request.getStatus()));
         return bankAccountTransaction;
     }
 
-    public static List<BankAccountTransaction> convert(List<TransactionRequest> request) {
+    public static List<BankAccountTransaction> convertTransactionList(List<TransactionRequest> request) {
         List<BankAccountTransaction> bankAccountTransactionList = new ArrayList<>();
         if (!bankAccountTransactionList.isEmpty()) {
             for (TransactionRequest transactionRequest : request) {
-                bankAccountTransactionList.add(TransactionRequest.convert(transactionRequest));
+                bankAccountTransactionList.add(TransactionRequest.convertTransactionObject(transactionRequest));
             }
         }
         return bankAccountTransactionList;

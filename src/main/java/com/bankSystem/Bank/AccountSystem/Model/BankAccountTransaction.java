@@ -16,12 +16,13 @@ import java.time.LocalDateTime;
 public class BankAccountTransaction extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
+    @Column(name = "id")
+    Integer transactionId;
     @Enumerated(EnumType.STRING)
     TransactionStatusEnum transactionStatus;
-    LocalDateTime dateTime;
-    String description;
-    Double amount;
+    LocalDateTime transactionDateTime;
+    String transactionDescription;
+    Double transactionAmount;
     @JoinColumn(name = "creditCard_id", referencedColumnName = "id")
     @ManyToOne
     CreditCard creditCard;

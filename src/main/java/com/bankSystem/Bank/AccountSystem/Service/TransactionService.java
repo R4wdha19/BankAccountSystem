@@ -103,13 +103,13 @@ public class TransactionService {
     }
 
     public void createAccountTransaction(TransactionRequest transactionRequest) {
-        BankAccountTransaction bankAccountTransaction = TransactionRequest.convert(transactionRequest);
+        BankAccountTransaction bankAccountTransaction = TransactionRequest.convertTransactionObject(transactionRequest);
         bankAccountTransactionRepository.save(bankAccountTransaction);
     }
 
     public void updateAccountTransaction(TransactionRequest transactionRequest, TransactionStatusEnum transactionStatusEnum) {
         BankAccountTransaction entity = bankAccountTransactionRepository.getAccountTransactionById(transactionRequest.getTransactionId());
-        entity.setDescription(transactionRequest.getDescription());
+        entity.setTransactionDescription(transactionRequest.getDescription());
         switch (transactionStatusEnum){
             case FAILED -> entity.setTransactionStatus(TransactionStatusEnum.FAILED);
             case SUCCESSFUL -> entity.setTransactionStatus(TransactionStatusEnum.SUCCESSFUL);
@@ -117,8 +117,5 @@ public class TransactionService {
             case RUNNING -> entity.setTransactionStatus(TransactionStatusEnum.RUNNING);
             case WAITING -> entity.setTransactionStatus(TransactionStatusEnum.WAITING);
         }
-
     }
-
-
 }

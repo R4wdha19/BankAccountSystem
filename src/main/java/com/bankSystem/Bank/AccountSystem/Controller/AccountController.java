@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping(value = "account")
@@ -66,7 +64,18 @@ public class AccountController {
         return accountResponseObject;
     }
 
-    @RequestMapping(value = "getByAccountId", method = RequestMethod.GET)
+//    @RequestMapping(value = "getBalanceByAccountNumberMap", method = RequestMethod.GET)
+//    //Retrieve the account balance for a specific account
+//    public Map<String, Object> getBalanceByAccountNumberMap(Integer accountNumber) {
+//        Double accountHavingACertainBalance = accountService.getBalanceByAccountNumber(accountNumber);
+//        AccountResponseObject accountResponseObject = AccountResponseObject.builder().number(accountNumber).balance(accountHavingACertainBalance).build();
+//        Map<String, Object> map = new HashMap<>();
+//        map.put("number", accountNumber);
+//        map.put("balance", accountHavingACertainBalance);
+//        return map;
+//    }
+
+    @RequestMapping(value = "getBalanceByAccountId", method = RequestMethod.GET)
     public AccountResponseObject getBalanceByAccountId(Integer accountId) {
         Double accountHavingACertainBalance = accountService.getBalanceByAccountId(accountId);
         AccountResponseObject accountResponseObject = AccountResponseObject.builder().id(accountId).balance(accountHavingACertainBalance).build();
