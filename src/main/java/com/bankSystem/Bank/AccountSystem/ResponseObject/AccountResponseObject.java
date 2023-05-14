@@ -25,6 +25,7 @@ public class AccountResponseObject {
 
     public static AccountResponseObject covertToResponse(Account requestFromAccount) {
         return AccountResponseObject.builder()
+                .id(requestFromAccount.getAccountId())
                 .number(requestFromAccount.getAccountNumber())
                 .type(requestFromAccount.getAccountType())
                 .balance(requestFromAccount.getAccountBalance())

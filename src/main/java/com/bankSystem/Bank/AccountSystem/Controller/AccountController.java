@@ -21,90 +21,125 @@ public class AccountController {
 
 
     @RequestMapping(value = "getAll", method = RequestMethod.GET)
-    public List<Account> getAllAccounts() {
+    public List<AccountResponseObject> getAllAccounts() {
         List<Account> accounts = new ArrayList<>();
         accounts = accountService.getAllAccounts();
-        AccountResponseObject.covertToResponseList(accounts);
-        return accounts;
+        List<AccountResponseObject> listOfConvertedAccounts = AccountResponseObject.covertToResponseList(accounts);
+        return listOfConvertedAccounts;
     }
 
     @RequestMapping(value = "getById", method = RequestMethod.GET)
-    public Account getAccountById(@RequestParam Integer accountId) {
-        return accountService.getAccountById(accountId);
+    public AccountResponseObject getAccountById(@RequestParam Integer accountId) {
+        Account accountToBeConverted = accountService.getAccountById(accountId);
+        AccountResponseObject convertedAccount = AccountResponseObject.covertToResponse(accountToBeConverted);
+        return convertedAccount;
     }
 
     @RequestMapping(value = "getByAccountNumber", method = RequestMethod.GET)
-    public Account getAccountByAccountNumber(@RequestParam Integer accountNumber) {
-        return accountService.getAccountByAccountNumber(accountNumber);
+    public AccountResponseObject getAccountByAccountNumber(@RequestParam Integer accountNumber) {
+        Account accountToBeConverted = accountService.getAccountByAccountNumber(accountNumber);
+        AccountResponseObject accountResponseObject = AccountResponseObject.covertToResponse(accountToBeConverted);
+        return accountResponseObject;
     }
 
     @RequestMapping(value = "getByAccountType", method = RequestMethod.GET)
-    public List<Account> getByAccountType(String accountType) {
-        List<Account> accountListByAccountType = accountService.getByAccountType(accountType);
-        return accountListByAccountType;
+    public List<AccountResponseObject> getByAccountType(String accountType) {
+        List<Account> accountListByAccountType = new ArrayList<>();
+        accountListByAccountType = accountService.getByAccountType(accountType);
+        List<AccountResponseObject> listOfConvertedAccounts = AccountResponseObject.covertToResponseList(accountListByAccountType);
+        return listOfConvertedAccounts;
     }
 
     @RequestMapping(value = "getByAccountBalance", method = RequestMethod.GET)
-    public List<Account> getByAccountBalance(Double accountBalance) {
-        List<Account> accountListByAccountBalance = accountService.getByAccountBalance(accountBalance);
-        return accountListByAccountBalance;
+    public List<AccountResponseObject> getByAccountBalance(Double accountBalance) {
+        List<Account> accountListByAccountBalance = new ArrayList<>();
+        accountListByAccountBalance = accountService.getByAccountBalance(accountBalance);
+        List<AccountResponseObject> listOfConvertedAccounts = AccountResponseObject.covertToResponseList(accountListByAccountBalance);
+        return listOfConvertedAccounts;
     }
 
     @RequestMapping(value = "getBalanceByAccountNumber", method = RequestMethod.GET)
     //Retrieve the account balance for a specific account
-    public Double getBalanceByAccountNumber(Integer accountNumber) {
-        return accountService.getBalanceByAccountNumber(accountNumber);
+    public AccountResponseObject getBalanceByAccountNumber(Integer accountNumber) {
+        Double accountHavingACertainBalance = accountService.getBalanceByAccountNumber(accountNumber);
+        AccountResponseObject accountResponseObject = AccountResponseObject.builder().number(accountNumber).balance(accountHavingACertainBalance).build();
+        return accountResponseObject;
     }
 
     @RequestMapping(value = "getByAccountId", method = RequestMethod.GET)
-    public Double getBalanceByAccountId(Integer accountId) {
-        return accountService.getBalanceByAccountId(accountId);
+    public AccountResponseObject getBalanceByAccountId(Integer accountId) {
+        Double accountHavingACertainBalance = accountService.getBalanceByAccountId(accountId);
+        AccountResponseObject accountResponseObject = AccountResponseObject.builder().id(accountId).balance(accountHavingACertainBalance).build();
+        return accountResponseObject;
     }
 
     @RequestMapping(value = "getByAccountInterest", method = RequestMethod.GET)
-    public List<Account> getByAccountInterest(Double accountInterest) {
-        List<Account> accountListByAccountInterest = accountService.getByAccountInterest(accountInterest);
-        return accountListByAccountInterest;
+    public List<AccountResponseObject> getByAccountInterest(Double accountInterest) {
+        List<Account> accountListByAccountInterest = new ArrayList<>();
+        accountListByAccountInterest = accountService.getByAccountInterest(accountInterest);
+        List<AccountResponseObject> convertedListOfAccounts = AccountResponseObject.covertToResponseList(accountListByAccountInterest);
+        return convertedListOfAccounts;
     }
 
     @RequestMapping(value = "getAllActiveAccounts", method = RequestMethod.GET)
-    public List<Account> getAllActiveAccounts() {
-        return accountService.getAllActiveAccounts();
+    public List<AccountResponseObject> getAllActiveAccounts() {
+        List<Account> activeAccounts = new ArrayList<>();
+        activeAccounts = accountService.getAllActiveAccounts();
+        List<AccountResponseObject> convertedListOfActiveAccounts = AccountResponseObject.covertToResponseList(activeAccounts);
+        return convertedListOfActiveAccounts;
     }
 
     @RequestMapping(value = "getAllInActiveAccounts", method = RequestMethod.GET)
-    public List<Account> getAllInActiveAccounts() {
-        return accountService.getAllInActiveAccounts();
+    public List<AccountResponseObject> getAllInActiveAccounts() {
+        List<Account> inActiveAccounts = new ArrayList<>();
+        inActiveAccounts = accountService.getAllInActiveAccounts();
+        List<AccountResponseObject> convertedListOfActiveAccounts = AccountResponseObject.covertToResponseList(inActiveAccounts);
+        return convertedListOfActiveAccounts;
     }
 
     @RequestMapping(value = "getByUpdatedDate", method = RequestMethod.GET)
-    public List<Account> getByUpdatedDate(String updatedDate) {
-        return accountService.getByUpdatedDate(updatedDate);
+    public List<AccountResponseObject> getByUpdatedDate(String updatedDate) {
+        List<Account> listOfAccountsByUpdatedDate = new ArrayList<>();
+        listOfAccountsByUpdatedDate = accountService.getByUpdatedDate(updatedDate);
+        List<AccountResponseObject> convertedListOfAccounts = AccountResponseObject.covertToResponseList(listOfAccountsByUpdatedDate);
+        return convertedListOfAccounts;
     }
 
     @RequestMapping(value = "getByCreatedDate", method = RequestMethod.GET)
-    public List<Account> getByCreatedDate(String createdDate) {
-        return accountService.getByCreatedDate(createdDate);
+    public List<AccountResponseObject> getByCreatedDate(String createdDate) {
+        List<Account> listOfAccountsByCreatedDate = new ArrayList<>();
+        listOfAccountsByCreatedDate = accountService.getByCreatedDate(createdDate);
+        List<AccountResponseObject> convertedListOfAccounts = AccountResponseObject.covertToResponseList(listOfAccountsByCreatedDate);
+        return convertedListOfAccounts;
     }
 
     @RequestMapping(value = "getAccountByCustomerId", method = RequestMethod.GET)
-    public Account getAccountByCustomerId(Integer customerId) {
-        return accountService.getAccountByCustomerId(customerId);
+    public AccountResponseObject getAccountByCustomerId(Integer customerId) {
+        Account accountByCustomerId = accountService.getAccountByCustomerId(customerId);
+        AccountResponseObject convertedAccountByCustomerId = AccountResponseObject.covertToResponse(accountByCustomerId);
+        return convertedAccountByCustomerId;
     }
 
     @RequestMapping(value = "getLatestRow", method = RequestMethod.GET)
-    public Account getLatestRow() {
-        return accountService.getAccountLatestRow();
+    public AccountResponseObject getLatestRow() {
+        Account latestAccountRow = accountService.getAccountLatestRow();
+        AccountResponseObject convertedLatestAccountRow = AccountResponseObject.covertToResponse(latestAccountRow);
+        return convertedLatestAccountRow;
     }
 
     @RequestMapping(value = "getLatestUpdatedAccount", method = RequestMethod.GET)
-    public Account getLatestUpdatedAccount() {
-        return accountService.getLatestUpdatedAccount();
+    public AccountResponseObject getLatestUpdatedAccount() {
+        Account latestUpdatedAccount = accountService.getLatestUpdatedAccount();
+        AccountResponseObject convertedLatestUpdatedAccount = AccountResponseObject.covertToResponse(latestUpdatedAccount);
+        return convertedLatestUpdatedAccount;
     }
 
     @RequestMapping(value = "getAccountsCreatedAfterDate", method = RequestMethod.GET)
-    public List<Account> getAccountsCreatedAfterDate(@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date createdDate) {
-        return accountService.getAccountsCreatedAfterDate(createdDate);
+    public List<AccountResponseObject> getAccountsCreatedAfterDate(@DateTimeFormat(pattern = "yyyy-MM-dd") Date createdDate) {
+        List<Account> listOfAccountsCreatedAfterDate = new ArrayList<>();
+        listOfAccountsCreatedAfterDate = accountService.getAccountsCreatedAfterDate(createdDate);
+        List<AccountResponseObject> convertedListOfAccounts = AccountResponseObject.covertToResponseList(listOfAccountsCreatedAfterDate);
+        return convertedListOfAccounts;
     }
 
     @RequestMapping(value = "deleteAllAccounts", method = RequestMethod.POST)
@@ -131,5 +166,30 @@ public class AccountController {
     public Double getAccountBalanceInterest(Integer accountId) {
         return accountService.getAccountBalanceInterest(accountId);
     }
+    @RequestMapping(value = "deleteById", method = RequestMethod.POST)
+    public void deleteById(@RequestParam Integer accountId) {
+        accountService.deleteById(accountId);
+    }
+    @RequestMapping(value = "deleteByAccountNumber", method = RequestMethod.POST)
+    public void deleteByAccountNumber(@RequestParam Integer accountNumber) {
+        accountService.deleteByAccountNumber(accountNumber);
+    }
+    @RequestMapping(value = "deleteByAccountType", method = RequestMethod.POST)
+    public void deleteByAccountType(@RequestParam String accountType) {
+        accountService.deleteByAccountType(accountType);
+    }
+    @RequestMapping(value = "deleteByAccountBalance", method = RequestMethod.POST)
+    public void deleteByAccountBalance(@RequestParam Double accountBalance) {
+        accountService.deleteByAccountBalance(accountBalance);
+    }
+    @RequestMapping(value = "deleteByAccountInterest", method = RequestMethod.POST)
+    public void deleteByAccountInterest(@RequestParam Double accountInterest) {
+        accountService.deleteByAccountInterest(accountInterest);
+    }
+    @RequestMapping(value = "deleteByCustomerId", method = RequestMethod.POST)
+    public void deleteByCustomerId(@RequestParam Integer customerId) {
+        accountService.deleteByCustomerId(customerId);
+    }
+
 
 }
