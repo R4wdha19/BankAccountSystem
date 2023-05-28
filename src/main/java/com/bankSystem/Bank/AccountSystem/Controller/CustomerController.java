@@ -4,6 +4,7 @@ import com.bankSystem.Bank.AccountSystem.Model.Customer;
 import com.bankSystem.Bank.AccountSystem.RequestObject.CustomerRequestObject;
 import com.bankSystem.Bank.AccountSystem.Service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -99,27 +100,27 @@ public class CustomerController {
         customerList = customerService.getCustomersByCreatedDate(createdDate);
         return customerList;
     }
-
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "deleteCustomerById", method = RequestMethod.POST)
     public void deleteCustomerById(Integer customerId) {
         customerService.deleteCustomerById(customerId);
     }
-
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "deleteCustomerByCustomerFirstName", method = RequestMethod.POST)
     public void deleteCustomerByCustomerFirstName(String firstName) {
         customerService.deleteCustomerByCustomerFirstName(firstName);
     }
-
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "deleteCustomerByCustomerLastName", method = RequestMethod.POST)
     public void deleteCustomerByCustomerLastName(String lastName) {
         customerService.deleteCustomerByCustomerLastName(lastName);
     }
-
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "deleteCustomerByCustomerName", method = RequestMethod.POST)
     public void deleteCustomerByCustomerName(String firstName, String lastName) {
         customerService.deleteCustomerByCustomerName(firstName, lastName);
     }
-
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "deleteCustomerByCustomerPhoneNumber", method = RequestMethod.POST)
     public void deleteCustomerByCustomerPhoneNumber(String phoneNumber) {
         customerService.deleteCustomerByCustomerPhoneNumber(phoneNumber);
@@ -129,7 +130,7 @@ public class CustomerController {
     public void createCustomer(CustomerRequestObject customerRequestObject) {
         customerService.createCustomer(customerRequestObject);
     }
-
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "updateCustomer", method = RequestMethod.POST)
     public void updateCustomer(CustomerRequestObject customerRequestObject) {
         customerService.updateCustomer(customerRequestObject);

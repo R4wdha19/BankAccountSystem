@@ -6,6 +6,7 @@ import com.bankSystem.Bank.AccountSystem.ResponseObject.AccountResponseObject;
 import com.bankSystem.Bank.AccountSystem.Service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -150,12 +151,12 @@ public class AccountController {
         List<AccountResponseObject> convertedListOfAccounts = AccountResponseObject.covertToResponseList(listOfAccountsCreatedAfterDate);
         return convertedListOfAccounts;
     }
-
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "deleteAllAccounts", method = RequestMethod.POST)
     public void deleteAllAccounts() {
         accountService.deleteAllAccounts();
     }
-
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "deleteAllAccountCreatedAfterDate", method = RequestMethod.POST)
     public void deleteAllAccountCreatedAfterDate(Date createdDate) {
         accountService.deleteAllAccountCreatedAfterDate(createdDate);
@@ -165,7 +166,7 @@ public class AccountController {
     public void createAccount(@RequestBody AccountRequest accountRequest) {
         accountService.createAccount(accountRequest);
     }
-
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "updateAccount", method = RequestMethod.POST)
     public void updateAccount(@RequestBody AccountRequest accountRequest) {
         accountService.updateAccount(accountRequest);
@@ -175,26 +176,32 @@ public class AccountController {
     public Double getAccountBalanceInterest(Integer accountId) {
         return accountService.getAccountBalanceInterest(accountId);
     }
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "deleteById", method = RequestMethod.POST)
     public void deleteById(@RequestParam Integer accountId) {
         accountService.deleteById(accountId);
     }
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "deleteByAccountNumber", method = RequestMethod.POST)
     public void deleteByAccountNumber(@RequestParam Integer accountNumber) {
         accountService.deleteByAccountNumber(accountNumber);
     }
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "deleteByAccountType", method = RequestMethod.POST)
     public void deleteByAccountType(@RequestParam String accountType) {
         accountService.deleteByAccountType(accountType);
     }
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "deleteByAccountBalance", method = RequestMethod.POST)
     public void deleteByAccountBalance(@RequestParam Double accountBalance) {
         accountService.deleteByAccountBalance(accountBalance);
     }
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "deleteByAccountInterest", method = RequestMethod.POST)
     public void deleteByAccountInterest(@RequestParam Double accountInterest) {
         accountService.deleteByAccountInterest(accountInterest);
     }
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "deleteByCustomerId", method = RequestMethod.POST)
     public void deleteByCustomerId(@RequestParam Integer customerId) {
         accountService.deleteByCustomerId(customerId);
