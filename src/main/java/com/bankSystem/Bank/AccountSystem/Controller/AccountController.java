@@ -18,7 +18,7 @@ public class AccountController {
     @Autowired
     AccountService accountService;
 
-
+    @PreAuthorize("hasRole('USER')")
     @RequestMapping(value = "getAll", method = RequestMethod.GET)
     public List<AccountResponseObject> getAllAccounts() {
         List<Account> accounts = new ArrayList<>();
@@ -26,21 +26,21 @@ public class AccountController {
         List<AccountResponseObject> listOfConvertedAccounts = AccountResponseObject.covertToResponseList(accounts);
         return listOfConvertedAccounts;
     }
-
+    @PreAuthorize("hasRole('USER')")
     @RequestMapping(value = "getById", method = RequestMethod.GET)
     public AccountResponseObject getAccountById(@RequestParam Integer accountId) {
         Account accountToBeConverted = accountService.getAccountById(accountId);
         AccountResponseObject convertedAccount = AccountResponseObject.covertToResponse(accountToBeConverted);
         return convertedAccount;
     }
-
+    @PreAuthorize("hasRole('USER')")
     @RequestMapping(value = "getByAccountNumber", method = RequestMethod.GET)
     public AccountResponseObject getAccountByAccountNumber(@RequestParam Integer accountNumber) {
         Account accountToBeConverted = accountService.getAccountByAccountNumber(accountNumber);
         AccountResponseObject accountResponseObject = AccountResponseObject.covertToResponse(accountToBeConverted);
         return accountResponseObject;
     }
-
+    @PreAuthorize("hasRole('USER')")
     @RequestMapping(value = "getByAccountType", method = RequestMethod.GET)
     public List<AccountResponseObject> getByAccountType(String accountType) {
         List<Account> accountListByAccountType = new ArrayList<>();
@@ -48,7 +48,7 @@ public class AccountController {
         List<AccountResponseObject> listOfConvertedAccounts = AccountResponseObject.covertToResponseList(accountListByAccountType);
         return listOfConvertedAccounts;
     }
-
+    @PreAuthorize("hasRole('USER')")
     @RequestMapping(value = "getByAccountBalance", method = RequestMethod.GET)
     public List<AccountResponseObject> getByAccountBalance(Double accountBalance) {
         List<Account> accountListByAccountBalance = new ArrayList<>();
@@ -56,7 +56,7 @@ public class AccountController {
         List<AccountResponseObject> listOfConvertedAccounts = AccountResponseObject.covertToResponseList(accountListByAccountBalance);
         return listOfConvertedAccounts;
     }
-
+    @PreAuthorize("hasRole('USER')")
     @RequestMapping(value = "getBalanceByAccountNumber", method = RequestMethod.GET)
     //Retrieve the account balance for a specific account
     public AccountResponseObject getBalanceByAccountNumber(Integer accountNumber) {
@@ -65,7 +65,7 @@ public class AccountController {
         return accountResponseObject;
     }
 
-//    @RequestMapping(value = "getBalanceByAccountNumberMap", method = RequestMethod.GET)
+    //    @RequestMapping(value = "getBalanceByAccountNumberMap", method = RequestMethod.GET)
 //    //Retrieve the account balance for a specific account
 //    public Map<String, Object> getBalanceByAccountNumberMap(Integer accountNumber) {
 //        Double accountHavingACertainBalance = accountService.getBalanceByAccountNumber(accountNumber);
@@ -75,7 +75,7 @@ public class AccountController {
 //        map.put("balance", accountHavingACertainBalance);
 //        return map;
 //    }
-
+    @PreAuthorize("hasRole('USER')")
     @RequestMapping(value = "getBalanceByAccountId", method = RequestMethod.GET)
     public AccountResponseObject getBalanceByAccountId(Integer accountId) {
         Double accountHavingACertainBalance = accountService.getBalanceByAccountId(accountId);
@@ -83,6 +83,7 @@ public class AccountController {
         return accountResponseObject;
     }
 
+    @PreAuthorize("hasRole('USER')")
     @RequestMapping(value = "getByAccountInterest", method = RequestMethod.GET)
     public List<AccountResponseObject> getByAccountInterest(Double accountInterest) {
         List<Account> accountListByAccountInterest = new ArrayList<>();
@@ -91,6 +92,7 @@ public class AccountController {
         return convertedListOfAccounts;
     }
 
+    @PreAuthorize("hasRole('USER')")
     @RequestMapping(value = "getAllActiveAccounts", method = RequestMethod.GET)
     public List<AccountResponseObject> getAllActiveAccounts() {
         List<Account> activeAccounts = new ArrayList<>();
@@ -99,6 +101,7 @@ public class AccountController {
         return convertedListOfActiveAccounts;
     }
 
+    @PreAuthorize("hasRole('USER')")
     @RequestMapping(value = "getAllInActiveAccounts", method = RequestMethod.GET)
     public List<AccountResponseObject> getAllInActiveAccounts() {
         List<Account> inActiveAccounts = new ArrayList<>();
@@ -107,6 +110,7 @@ public class AccountController {
         return convertedListOfActiveAccounts;
     }
 
+    @PreAuthorize("hasRole('USER')")
     @RequestMapping(value = "getByUpdatedDate", method = RequestMethod.GET)
     public List<AccountResponseObject> getByUpdatedDate(String updatedDate) {
         List<Account> listOfAccountsByUpdatedDate = new ArrayList<>();
@@ -115,6 +119,7 @@ public class AccountController {
         return convertedListOfAccounts;
     }
 
+    @PreAuthorize("hasRole('USER')")
     @RequestMapping(value = "getByCreatedDate", method = RequestMethod.GET)
     public List<AccountResponseObject> getByCreatedDate(String createdDate) {
         List<Account> listOfAccountsByCreatedDate = new ArrayList<>();
@@ -123,6 +128,7 @@ public class AccountController {
         return convertedListOfAccounts;
     }
 
+    @PreAuthorize("hasRole('USER')")
     @RequestMapping(value = "getAccountByCustomerId", method = RequestMethod.GET)
     public AccountResponseObject getAccountByCustomerId(Integer customerId) {
         Account accountByCustomerId = accountService.getAccountByCustomerId(customerId);
@@ -130,6 +136,7 @@ public class AccountController {
         return convertedAccountByCustomerId;
     }
 
+    @PreAuthorize("hasRole('USER')")
     @RequestMapping(value = "getLatestRow", method = RequestMethod.GET)
     public AccountResponseObject getLatestRow() {
         Account latestAccountRow = accountService.getAccountLatestRow();
@@ -137,6 +144,7 @@ public class AccountController {
         return convertedLatestAccountRow;
     }
 
+    @PreAuthorize("hasRole('USER')")
     @RequestMapping(value = "getLatestUpdatedAccount", method = RequestMethod.GET)
     public AccountResponseObject getLatestUpdatedAccount() {
         Account latestUpdatedAccount = accountService.getLatestUpdatedAccount();
@@ -144,6 +152,7 @@ public class AccountController {
         return convertedLatestUpdatedAccount;
     }
 
+    @PreAuthorize("hasRole('USER')")
     @RequestMapping(value = "getAccountsCreatedAfterDate", method = RequestMethod.GET)
     public List<AccountResponseObject> getAccountsCreatedAfterDate(@DateTimeFormat(pattern = "yyyy-MM-dd") Date createdDate) {
         List<Account> listOfAccountsCreatedAfterDate = new ArrayList<>();
@@ -151,11 +160,13 @@ public class AccountController {
         List<AccountResponseObject> convertedListOfAccounts = AccountResponseObject.covertToResponseList(listOfAccountsCreatedAfterDate);
         return convertedListOfAccounts;
     }
+
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "deleteAllAccounts", method = RequestMethod.POST)
     public void deleteAllAccounts() {
         accountService.deleteAllAccounts();
     }
+
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "deleteAllAccountCreatedAfterDate", method = RequestMethod.POST)
     public void deleteAllAccountCreatedAfterDate(Date createdDate) {
@@ -166,6 +177,7 @@ public class AccountController {
     public void createAccount(@RequestBody AccountRequest accountRequest) {
         accountService.createAccount(accountRequest);
     }
+
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "updateAccount", method = RequestMethod.POST)
     public void updateAccount(@RequestBody AccountRequest accountRequest) {
@@ -176,31 +188,37 @@ public class AccountController {
     public Double getAccountBalanceInterest(Integer accountId) {
         return accountService.getAccountBalanceInterest(accountId);
     }
+
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "deleteById", method = RequestMethod.POST)
     public void deleteById(@RequestParam Integer accountId) {
         accountService.deleteById(accountId);
     }
+
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "deleteByAccountNumber", method = RequestMethod.POST)
     public void deleteByAccountNumber(@RequestParam Integer accountNumber) {
         accountService.deleteByAccountNumber(accountNumber);
     }
+
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "deleteByAccountType", method = RequestMethod.POST)
     public void deleteByAccountType(@RequestParam String accountType) {
         accountService.deleteByAccountType(accountType);
     }
+
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "deleteByAccountBalance", method = RequestMethod.POST)
     public void deleteByAccountBalance(@RequestParam Double accountBalance) {
         accountService.deleteByAccountBalance(accountBalance);
     }
+
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "deleteByAccountInterest", method = RequestMethod.POST)
     public void deleteByAccountInterest(@RequestParam Double accountInterest) {
         accountService.deleteByAccountInterest(accountInterest);
     }
+
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "deleteByCustomerId", method = RequestMethod.POST)
     public void deleteByCustomerId(@RequestParam Integer customerId) {
