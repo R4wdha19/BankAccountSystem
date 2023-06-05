@@ -51,7 +51,10 @@ public interface BankAccountTransactionRepository extends JpaRepository<BankAcco
     @Query(value = "update BankAccountTransaction bat Set bat.isActive = false")
     public void deleteAllAccountTransactions();
 
-    @Query("select bat.transactionDescription from BankAccountTransaction bat where bat.accountNumber= :accountNumber")
-    public BankAccountTransaction getAccountDescriptionByAccountNumber(@Param("accountNumber") Integer accountNumber);
+    @Query("select bat.transactionDescription from BankAccountTransaction bat where bat.creditCard.account.accountNumber= :accountNumber")
+    //Class BankAccountTransaction has no account number it can only be accessed by above way
+    // It does not matter if you have no data or database
+    // it looks at your classes not your database
+    public String getAccountDescriptionByAccountNumber(@Param("accountNumber") Integer accountNumber);
 
 }

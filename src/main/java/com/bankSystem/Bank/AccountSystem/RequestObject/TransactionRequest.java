@@ -2,7 +2,6 @@ package com.bankSystem.Bank.AccountSystem.RequestObject;
 
 import com.bankSystem.Bank.AccountSystem.Model.BankAccountTransaction;
 import com.bankSystem.Bank.AccountSystem.Utility.HelperClass;
-import com.bankSystem.Bank.AccountSystem.Utility.TransactionStatusEnum;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,11 +15,17 @@ import java.util.List;
 @Setter
 @Getter
 public class TransactionRequest {
+
     Integer transactionId;
+
     LocalDateTime dateTime;
+
     String description;
+
     Double amount;
+
     String status;
+
     CreditCardRequest creditCardRequest;
 
     public static BankAccountTransaction convertTransactionObject(TransactionRequest request) {
@@ -31,7 +36,7 @@ public class TransactionRequest {
         bankAccountTransaction.setIsActive(true);
         bankAccountTransaction.setCreatedDate(new Date());
         bankAccountTransaction.setCreditCard(CreditCardRequest.convert(request.getCreditCardRequest()));
-        bankAccountTransaction.setTransactionStatus(HelperClass.getTransactionStatusEnumFromStatus(request.getStatus()));
+        bankAccountTransaction.setTransactionStatus(HelperClass.getTransactionStatusFromTransactionStatusEnum(request.getStatus()));
         return bankAccountTransaction;
     }
 

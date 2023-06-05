@@ -74,7 +74,7 @@ public class HelperClass {
         }
     }
 
-    public static TransactionStatusEnum getTransactionStatusEnumFromStatus(String status){
+    public static TransactionStatusEnum getTransactionStatusFromTransactionStatusEnum(String status){
         TransactionStatusEnum transactionStatusEnum = TransactionStatusEnum.SUCCESSFUL;
         switch (status){
             case "FAILED" -> transactionStatusEnum = TransactionStatusEnum.FAILED;
@@ -83,5 +83,17 @@ public class HelperClass {
             case "WAITING" -> transactionStatusEnum = TransactionStatusEnum.WAITING;
         }
         return transactionStatusEnum;
+    }
+
+    public static LoanStatusEnum getLoanStatusFromLoanStatusEnum(String status){
+        LoanStatusEnum loanStatusEnum = LoanStatusEnum.Repaid;
+        switch (status){
+            case "Default" -> loanStatusEnum = LoanStatusEnum.Default;
+            case "ChargedOff" -> loanStatusEnum = LoanStatusEnum.ChargedOff;
+            case "Delinquent" -> loanStatusEnum = LoanStatusEnum.Delinquent;
+            case "Foreclosure" -> loanStatusEnum = LoanStatusEnum.Foreclosure;
+            case "Current" -> loanStatusEnum = LoanStatusEnum.Current;
+        }
+        return loanStatusEnum;
     }
 }

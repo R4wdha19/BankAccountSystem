@@ -118,7 +118,7 @@ public class TransactionService {
             case WAITING -> entity.setTransactionStatus(TransactionStatusEnum.WAITING);
         }
     }
-    public BankAccountTransaction getAccountDescriptionByAccountNumber(Integer accountNumber) {
+    public String getAccountDescriptionByAccountNumber(Integer accountNumber) {
         return bankAccountTransactionRepository.getAccountDescriptionByAccountNumber(accountNumber);
     }
 }

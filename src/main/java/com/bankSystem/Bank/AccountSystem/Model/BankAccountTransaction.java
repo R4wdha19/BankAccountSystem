@@ -18,11 +18,16 @@ public class BankAccountTransaction extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     Integer transactionId;
+
     @Enumerated(EnumType.STRING)
     TransactionStatusEnum transactionStatus;
+
     LocalDateTime transactionDateTime;
+
     String transactionDescription;
+
     Double transactionAmount;
+
     @JoinColumn(name = "creditCard_id", referencedColumnName = "id")
     @ManyToOne
     CreditCard creditCard;
